@@ -12,38 +12,27 @@ Después de que se han obtenido los registros de un cursor abierto con el comand
 Como ejemplo para el primer tipo de variable programaremos una función PL/SQL con <b>refcursors</b>,en PostgreSQL un <b>refcursor</b> (cursor de referencia) es un cursor que se construye en  runtime(tiempo de ejecucción), como su nombre indica es la referencia a un cursor.<br> Usaremos el siguiente schema como parte del ejemplo:
 </p>
 <div>
-<IMG src="picture_library/refcursors/fig1.png" width="777">
+<IMG src="images/fig1.png" width="777">
 </div><br>
 <p align="justify">Este schema representa una estructura básica para la contabilidad de pagos y documentos, en donde cada pago recibido debe ser aplicado a un documento y reducir su monto.</p>
 <div>Consultamos la tabla invoices</div><br>
 <div>
-<IMG src="picture_library/refcursors/fig2.png" width="777">
+<IMG src="images/fig2.png" width="777">
 </div><br>
 <div>Consultamos los pagos</div><br>
 <div>
-<IMG src="picture_library/refcursors/fig3.png" width="777">
+<IMG src="images/fig3.png" width="777">
 </div><br>
 <p align="justify">La aplicación de un pago hacia un documento debe generar un registro en la tabla <i>payments_docs</i> así que el próposito del código PL/SQL como ejemplo es asociar un pago aplicado a una factura y actualizar su monto.  
 Esta funcionalidad la creamos con el siguiente código PL/SQL, que consiste de dos funciones de apoyo <i>getinvoice()</i>, <i>getpayment()</i> y una función principal <i>setpaymentdoc(p_inv_id numeric,p_pay_id numeric)</i>.
 Con esta función regresamos un cursor de referencia con los datos de una factura de la tabla <i>invoices</i>.</p>
-<div>
-<IMG src="picture_library/refcursors/getinvoice.png">
-</div><br>
-<div>Similar a la función anterior pero ahora regresamos un pago de la tabla <i>payments</i>.</div>
-<div>
-<IMG src="picture_library/refcursors/getpayment.png">
-</div><br>
-<p align="justify">Ahora el código PL/SQL de la función principal la cuál establece la relación entre el pago y la factura y actualiza su balance.</p>
-<div>
-<IMG src="picture_library/refcursors/setpayment.png">
-</div><br>
 <div>Al ejecutar las funciones <i>getinvoice()</i> y <i>getpayment()</i>, ambas regresan un cursor de referencia.</div><br>
 <div>
-<IMG src="picture_library/refcursors/fig4.png" width="777">
+<IMG src="images/fig4.png" width="777">
 </div><br>
 <p align="justify">Antes de ejecutar el procedimiento consultamos el pago y la factura de las cuales se obtendrán los datos  para crear el registro en la tabla de relación <i>payments_docs</i>, como resultado de la ejecucción del procedimiento.</p>
 <div>
-<IMG src="picture_library/refcursors/fig5.png" width="777">
+<IMG src="images/fig5.png" width="777">
 </div><br>
 <p>En la primera función  <i>getinvoice()</i> observamos como el tipo de valor devuelto es un cursor de referencia, esto mediante la sentencia <b><i>RETURNS refcursor AS</i></b></p>
 <pre>
@@ -103,9 +92,9 @@ v_balance := v_invoice_total - v_pay_amount;
 </pre>
 <p align="justify">Al ejecutar el procedimiento con todos sus argumentos se mostrará el resultado como se ve en la siguiente imagen:</p>
 <div>
-<IMG src="picture_library/refcursors/fig6.png" width="667">
+<IMG src="images/fig6.png" width="667">
 </div><br>
 <p>Ahora consultamos la tabla de relación, para ver el registro creado, resultado de la ejecución del procedimiento.</p>
 <div>
-<IMG src="picture_library/refcursors/fig7.png" width="667">
+<IMG src="images/fig7.png" width="667">
 </div>
